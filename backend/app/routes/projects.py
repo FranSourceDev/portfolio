@@ -11,7 +11,7 @@ from app.routes.auth import get_current_active_user
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.Project])
+@router.get("/", response_model=List[schemas.Project], tags=["projects"])
 def get_projects(
     skip: int = 0,
     limit: int = 100,
@@ -28,7 +28,7 @@ def get_projects(
     return projects
 
 
-@router.get("/{project_id}", response_model=schemas.Project)
+@router.get("/{project_id}", response_model=schemas.Project, tags=["projects"])
 def get_project(project_id: int, db: Session = Depends(get_db)):
     """Obtener un proyecto específico (público)"""
     project = db.query(models.Project).filter(models.Project.id == project_id).first()
@@ -37,7 +37,12 @@ def get_project(project_id: int, db: Session = Depends(get_db)):
     return project
 
 
-@router.post("/", response_model=schemas.Project, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/",
+    response_model=schemas.Project,
+    status_code=status.HTTP_201_CREATED,
+    tags=["projects"],
+)
 def create_project(
     project: schemas.ProjectCreate,
     db: Session = Depends(get_db),
@@ -51,7 +56,7 @@ def create_project(
     return db_project
 
 
-@router.put("/{project_id}", response_model=schemas.Project)
+@router.put("/{project_id}", response_model=schemas.Project, tags=["projects"])
 def update_project(
     project_id: int,
     project_update: schemas.ProjectUpdate,
@@ -75,7 +80,9 @@ def update_project(
     return db_project
 
 
-@router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{project_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["projects"]
+)
 def delete_project(
     project_id: int,
     db: Session = Depends(get_db),

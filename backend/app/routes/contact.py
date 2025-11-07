@@ -9,7 +9,7 @@ from app.routes.auth import get_current_active_user
 router = APIRouter()
 
 
-@router.get("/", response_model=schemas.Contact)
+@router.get("/", response_model=schemas.Contact, tags=["contact"])
 def get_contact_info(db: Session = Depends(get_db)):
     """Obtener información de contacto (público)"""
     contact = db.query(models.Contact).first()
@@ -20,7 +20,12 @@ def get_contact_info(db: Session = Depends(get_db)):
     return contact
 
 
-@router.post("/", response_model=schemas.Contact, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/",
+    response_model=schemas.Contact,
+    status_code=status.HTTP_201_CREATED,
+    tags=["contact"],
+)
 def create_contact_info(
     contact: schemas.ContactCreate,
     db: Session = Depends(get_db),
@@ -42,7 +47,7 @@ def create_contact_info(
     return db_contact
 
 
-@router.put("/", response_model=schemas.Contact)
+@router.put("/", response_model=schemas.Contact, tags=["contact"])
 def update_contact_info(
     contact_update: schemas.ContactUpdate,
     db: Session = Depends(get_db),
