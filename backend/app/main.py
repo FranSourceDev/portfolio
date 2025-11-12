@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.database import Base, engine
-from app.routes import auth, contact, media, projects
+from app.routes import auth, chatbot, contact, media, projects
 
 # Crear tablas
 Base.metadata.create_all(bind=engine)
@@ -35,6 +35,7 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(projects.router, prefix="/api/projects", tags=["Projects"])
 app.include_router(contact.router, prefix="/api/contact", tags=["Contact"])
 app.include_router(media.router, prefix="/api/media", tags=["Media"])
+app.include_router(chatbot.router, prefix="/api/chatbot", tags=["Chatbot"])
 
 
 @app.get("/")

@@ -90,7 +90,12 @@ async def get_current_active_user(
 
 
 # Rutas
-@router.post("/register", response_model=schemas.User, tags=["auth"])
+@router.post(
+    "/register",
+    status_code=status.HTTP_201_CREATED,
+    response_model=schemas.User,
+    tags=["auth"],
+)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # Verificar si el usuario ya existe
     db_user = db.query(models.User).filter(models.User.email == user.email).first()

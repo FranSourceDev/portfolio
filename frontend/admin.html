@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --success: #48bb78;
+            --danger: #f56565;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-btn {
+            padding: 0.6rem 1.5rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #e53e3e;
+            transform: translateY(-2px);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .projects-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .project-info p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-input-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.4rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .login-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <h2>🔐 Admin Login</h2>
+            <div id="loginAlert" class="alert"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="hidden">
+        <div class="container">
+            <header>
+                <h1>📊 Panel de Administración</h1>
+                <div class="user-info">
+                    <span id="welcomeUser">Bienvenido</span>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </header>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('projects')">Proyectos</button>
+                <button class="tab-btn" onclick="switchTab('contact')">Contacto</button>
+            </div>
+
+            <!-- Projects Tab -->
+            <div id="projectsTab" class="tab-content active">
+                <div class="card">
+                    <h2>Crear Nuevo Proyecto</h2>
+                    <div id="projectAlert" class="alert"></div>
+                    <form id="projectForm">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" id="projectTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea id="projectDescription" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tecnologías</label>
+                            <div class="tech-input-container">
+                                <input type="text" id="techInput" placeholder="Ej: Python, React...">
+                                <button type="button" class="btn btn-success" onclick="addTech()">Agregar</button>
+                            </div>
+                            <div class="tech-tags" id="techTags"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>URL de GitHub</label>
+                            <input type="url" id="projectGithub">
+                        </div>
+                        <div class="form-group">
+                            <label>URL de Demo</label>
+                            <input type="url" id="projectDemo">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="projectFeatured">
+                                Proyecto Destacado
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Proyectos Existentes</h2>
+                    <div class="projects-list" id="projectsList"></div>
+                </div>
+            </div>
+
+            <!-- Contact Tab -->
+            <div id="contactTab" class="tab-content">
+                <div class="card">
+                    <h2>Información de Contacto</h2>
+                    <div id="contactAlert" class="alert"></div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" id="contactName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="contactEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" id="contactPhone">
+                        </div>
+                        <div class="form-group">
+                            <label>Ubicación</label>
+                            <input type="text" id="contactLocation">
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn</label>
+                            <input type="url" id="contactLinkedin">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub</label>
+                            <input type="url" id="contactGithub">
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter</label>
+                            <input type="url" id="contactTwitter">
+                        </div>
+                        <div class="form-group">
+                            <label>Sitio Web</label>
+                            <input type="url" id="contactWebsite">
+                        </div>
+                        <div class="form-group">
+                            <label>Biografía</label>
+                            <textarea id="contactBio" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Información</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000/api';
+        let token = localStorage.getItem('admin_token');
+        let technologies = [];
+
+        // Check if logged in
+        if (token) {
+            showAdminPanel();
+        }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('username', username);
+                formData.append('password', password);
+
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Credenciales inválidas');
+
+                const data = await response.json();
+                token = data.access_token;
+                localStorage.setItem('admin_token', token);
+                showAdminPanel();
+            } catch (error) {
+                showAlert('loginAlert', error.message, 'error');
+            }
+        });
+
+        function showAdminPanel() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            loadProjects();
+            loadContactInfo();
+        }
+
+        function logout() {
+            localStorage.removeItem('admin_token');
+            token = null;
+            location.reload();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.className = `alert alert-${type} show`;
+            alert.textContent = message;
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        }
+
+        // Technologies management
+        function addTech() {
+            const input = document.getElementById('techInput');
+            const tech = input.value.trim();
+            if (tech && !technologies.includes(tech)) {
+                technologies.push(tech);
+                renderTechTags();
+                input.value = '';
+            }
+        }
+
+        function removeTech(tech) {
+            technologies = technologies.filter(t => t !== tech);
+            renderTechTags();
+        }
+
+        function renderTechTags() {
+            const container = document.getElementById('techTags');
+            container.innerHTML = technologies.map(tech => `
+                <span class="tech-tag">
+                    ${tech}
+                    <button onclick="removeTech('${tech}')">&times;</button>
+                </span>
+            `).join('');
+        }
+
+        // Projects
+        document.getElementById('projectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const project = {
+                title: document.getElementById('projectTitle').value,
+                description: document.getElementById('projectDescription').value,
+                technologies: technologies,
+                github_url: document.getElementById('projectGithub').value || null,
+                demo_url: document.getElementById('projectDemo').value || null,
+                is_featured: document.getElementById('projectFeatured').checked
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/projects`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(project)
+                });
+
+                if (!response.ok) throw new Error('Error al crear proyecto');
+
+                showAlert('projectAlert', '✅ Proyecto creado exitosamente', 'success');
+                document.getElementById('projectForm').reset();
+                technologies = [];
+                renderTechTags();
+                loadProjects();
+            } catch (error) {
+                showAlert('projectAlert', '❌ ' + error.message, 'error');
+            }
+        });
+
+        async function loadProjects() {
+            try {
+                const response = await fetch(`${API_URL}/projects`);
+                const projects = await response.json();
+
+                const list = document.getElementById('projectsList');
+                list.innerHTML = projects.map(project => `
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>${project.title} ${project.is_featured ? '⭐' : ''}</h3>
+                            <p>${project.description.substring(0, 100)}...</p>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn btn-danger" onclick="deleteProject(${project.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+
+        async function deleteProject(id) {
+            if (!confirm('¿Estás seguro de eliminar este proyecto?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/projects/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al eliminar');
+
+                showAlert('projectAlert', '✅ Proyecto eliminado', 'success');
+                loadProjects();
+            } catch (error) {
+                showAlert('projectAlert', '❌ ' + error.message, 'error');
+            }
+        }
+
+        // Contact
+        async function loadContactInfo() {
+            try {
+                const response = await fetch(`${API_URL}/contact`);
+                const contact = await response.json();
+
+                document.getElementById('contactName').value = contact.name || '';
+                document.getElementById('contactEmail').value = contact.email || '';
+                document.getElementById('contactPhone').value = contact.phone || '';
+                document.getElementById('contactLocation').value = contact.location || '';
+                document.getElementById('contactLinkedin').value = contact.linkedin || '';
+                document.getElementById('contactGithub').value = contact.github || '';
+                document.getElementById('contactTwitter').value = contact.twitter || '';
+                document.getElementById('contactWebsite').value = contact.website || '';
+                document.getElementById('contactBio').value = contact.bio || '';
+            } catch (error) {
+                console.error('Error loading contact:', error);
+            }
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const contact = {
+                name: document.getElementById('contactName').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value || null,
+                location: document.getElementById('contactLocation').value || null,
+                linkedin: document.getElementById('contactLinkedin').value || null,
+                github: document.getElementById('contactGithub').value || null,
+                twitter: document.getElementById('contactTwitter').value || null,
+                website: document.getElementById('contactWebsite').value || null,
+                bio: document.getElementById('contactBio').value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/contact`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(contact)
+                });
+
+                if (!response.ok) throw new Error('Error al actualizar');
+
+                showAlert('contactAlert', '✅ Información actualizada exitosamente', 'success');
+            } catch (error) {
+                showAlert('contactAlert', '❌ ' + error.message, 'error');
+            }
+        });
+
+        // Enter key for adding tech
+        document.getElementById('techInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTech();
+            }
+        });
+    </script>
+</body>
+</html>
