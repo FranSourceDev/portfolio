@@ -94,7 +94,6 @@ async def get_current_active_user(
     "/register",
     status_code=status.HTTP_201_CREATED,
     response_model=schemas.User,
-    tags=["auth"],
 )
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # Verificar si el usuario ya existe
@@ -119,7 +118,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.post("/login", response_model=schemas.Token, tags=["auth"])
+@router.post("/login", response_model=schemas.Token)
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
@@ -137,6 +136,6 @@ async def login(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/me", response_model=schemas.User, tags=["auth"])
+@router.get("/me", response_model=schemas.User)
 async def read_users_me(current_user: models.User = Depends(get_current_active_user)):
     return current_user

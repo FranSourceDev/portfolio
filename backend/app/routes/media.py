@@ -85,7 +85,7 @@ async def upload_files(
     return uploaded_media
 
 
-@router.get("/{media_id}", response_model=schemas.Media, tags=["media"])
+@router.get("/{media_id}", response_model=schemas.Media)
 def get_media(media_id: int, db: Session = Depends(get_db)):
     """Obtener información de un archivo"""
     media = db.query(models.Media).filter(models.Media.id == media_id).first()
@@ -115,7 +115,7 @@ def delete_media(
     return None
 
 
-@router.get("/project/{project_id}", response_model=List[schemas.Media], tags=["media"])
+@router.get("/project/{project_id}", response_model=List[schemas.Media])
 def get_project_media(project_id: int, db: Session = Depends(get_db)):
     """Obtener todos los archivos de un proyecto"""
     media_list = (
