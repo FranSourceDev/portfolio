@@ -609,37 +609,68 @@
         }
 
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+    e.preventDefault();
 
-            const contact = {
-                name: document.getElementById('contactName').value,
-                email: document.getElementById('contactEmail').value,
-                phone: document.getElementById('contactPhone').value || null,
-                location: document.getElementById('contactLocation').value || null,
-                linkedin: document.getElementById('contactLinkedin').value || null,
-                github: document.getElementById('contactGithub').value || null,
-                twitter: document.getElementById('contactTwitter').value || null,
-                website: document.getElementById('contactWebsite').value || null,
-                bio: document.getElementById('contactBio').value
-            };
+    const contact = {
+        name: document.getElementById('contactName').value,
+        email: document.getElementById('contactEmail').value,
+        phone: document.getElementById('contactPhone').value || null,
+        location: document.getElementById('contactLocation').value || null,
+        linkedin: document.getElementById('contactLinkedin').value || null,
+        github: document.getElementById('contactGithub').value || null,
+        twitter: document.getElementById('contactTwitter').value || null,
+        website: document.getElementById('contactWebsite').value || null,
+        bio: document.getElementById('contactBio').value
+    };
 
-            try {
-                const response = await fetch(`${API_URL}/contact`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(contact)
-                });
+    try {
+        // Verificar si existe primero
+        const checkResponse = await fetch(`${API_URL}/contact`);
+        
+        let response;
+        
+        if (checkResponse.status === 404) {
+            // No existe, crear con POST
+            console.log('📝 Creando contacto nuevo...');
+            response = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(contact)
+            });
+        } else {
+            // Ya existe, actualizar con PUT
+            console.log('✏️ Actualizando contacto existente...');
+            response = await fetch(`${API_URL}/contact`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(contact)
+            });
+        }
 
-                if (!response.ok) throw new Error('Error al actualizar');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Error desconocido');
+        }
 
-                showAlert('contactAlert', '✅ Información actualizada exitosamente', 'success');
-            } catch (error) {
-                showAlert('contactAlert', '❌ ' + error.message, 'error');
-            }
-        });
+        const data = await response.json();
+        console.log('✅ Contacto guardado:', data);
+        
+        showAlert('contactAlert', '✅ Información guardada exitosamente', 'success');
+        
+        // Recargar para mostrar los datos actualizados
+        setTimeout(() => loadContactInfo(), 1000);
+        
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showAlert('contactAlert', '❌ Error: ' + error.message, 'error');
+    }
+});
 
         // Enter key for adding tech
         document.getElementById('techInput').addEventListener('keypress', (e) => {

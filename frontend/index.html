@@ -810,7 +810,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Mi Portfolio. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Mi Portfolio. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Chat Button -->
@@ -900,50 +900,79 @@
         }
 
         // Cargar proyectos
-        async function loadProjects() {
-            try {
-                const response = await fetch(`${API_URL}/projects`);
-                allProjects = await response.json();
-
-                document.getElementById('projectCount').textContent = allProjects.length;
-
-                const technologies = new Set();
-                allProjects.forEach(p => p.technologies?.forEach(t => technologies.add(t)));
-                document.getElementById('techCount').textContent = technologies.size;
-
-                displayProjects(allProjects);
-            } catch (error) {
-                console.error('Error loading projects:', error);
-                document.getElementById('projectsGrid').innerHTML = '<p>Error al cargar proyectos</p>';
-            }
+async function loadProjects() {
+    try {
+        console.log('🔄 Cargando proyectos desde:', `${API_URL}/projects`);
+        
+        const response = await fetch(`${API_URL}/projects`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        allProjects = await response.json();
+        
+        console.log('✅ Proyectos cargados:', allProjects.length);
+        console.log('Proyectos:', allProjects);
+
+        // Actualizar contador
+        document.getElementById('projectCount').textContent = allProjects.length;
+
+        // Contar tecnologías
+        const technologies = new Set();
+        allProjects.forEach(p => {
+            if (p.technologies && Array.isArray(p.technologies)) {
+                p.technologies.forEach(t => technologies.add(t));
+            }
+        });
+        document.getElementById('techCount').textContent = technologies.size;
 
         // Mostrar proyectos
-        function displayProjects(projects) {
-            const grid = document.getElementById('projectsGrid');
-            
-            if (projects.length === 0) {
-                grid.innerHTML = '<p class="loading">No hay proyectos disponibles</p>';
-                return;
-            }
+        displayProjects(allProjects);
+        
+    } catch (error) {
+        console.error('❌ Error loading projects:', error);
+        const grid = document.getElementById('projectsGrid');
+        grid.innerHTML = `
+            <div class="loading" style="color: red;">
+                ❌ Error al cargar proyectos: ${error.message}
+                <br><br>
+                <button onclick="loadProjects()" class="btn btn-primary">Reintentar</button>
+            </div>
+        `;
+    }
+}
 
-            grid.innerHTML = projects.map(project => `
-                <div class="project-card">
-                    <div class="project-image">🚀</div>
-                    <div class="project-content">
-                        <h3 class="project-title">${project.title}</h3>
-                        <p class="project-description">${project.description}</p>
-                        <div class="project-tech">
-                            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                        </div>
-                        <div class="project-links">
-                            ${project.demo_url ? `<a href="${project.demo_url}" target="_blank" class="project-link demo">Ver Demo</a>` : ''}
-                            ${project.github_url ? `<a href="${project.github_url}" target="_blank" class="project-link code">Ver Código</a>` : ''}
-                        </div>
-                    </div>
+        // Mostrar proyectos
+function displayProjects(projects) {
+    const grid = document.getElementById('projectsGrid');
+    
+    console.log('📊 Mostrando proyectos:', projects.length);
+    
+    if (!projects || projects.length === 0) {
+        grid.innerHTML = '<p class="loading">No hay proyectos disponibles</p>';
+        return;
+    }
+
+    grid.innerHTML = projects.map(project => `
+        <div class="project-card">
+            <div class="project-image">🚀</div>
+            <div class="project-content">
+                <h3 class="project-title">${project.title || 'Sin título'}</h3>
+                <p class="project-description">${project.description || 'Sin descripción'}</p>
+                <div class="project-tech">
+                    ${(project.technologies || []).map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                 </div>
-            `).join('');
-        }
+                <div class="project-links">
+                    ${project.demo_url ? `<a href="${project.demo_url}" target="_blank" class="project-link demo">Ver Demo</a>` : ''}
+                    ${project.github_url ? `<a href="${project.github_url}" target="_blank" class="project-link code">Ver Código</a>` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    console.log('✅ Proyectos renderizados');
+}
 
         // Filtros de proyectos
         document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1116,3 +1145,6 @@
                 nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             }
         });
+        </script>
+</body>
+</html>
