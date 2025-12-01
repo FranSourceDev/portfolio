@@ -46,17 +46,24 @@ const auth = {
         api.clearToken();
         this.updateUI();
         showToast('Sesión cerrada', 'success');
-        navigateTo('home');
+        // Redirigir a home (funciona tanto en index.html como en admin.html)
+        if (typeof navigateTo === 'function') {
+            navigateTo('home');
+        } else {
+            window.location.href = '/';
+        }
     },
 
     // Update UI based on auth state
     updateUI() {
         const adminLink = document.getElementById('adminLink');
 
-        if (this.isAuthenticated) {
-            adminLink.textContent = 'Dashboard';
-        } else {
-            adminLink.textContent = 'Admin';
+        if (adminLink) {
+            if (this.isAuthenticated) {
+                adminLink.textContent = 'Dashboard';
+            } else {
+                adminLink.textContent = 'Admin';
+            }
         }
     },
 
