@@ -167,6 +167,13 @@ p {
   display: block;
 }
 
+/* Páginas individuales (proyectos, contacto, admin) - compensar navbar fijo */
+.projects-section.active,
+.contact-section.active,
+.admin-section.active {
+  padding-top: 120px;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: var(--spacing-3xl);

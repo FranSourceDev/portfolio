@@ -128,10 +128,10 @@ async function handleProjectSubmit(e, projectId = null) {
 
         hideModal();
 
-        // Reload projects
-        if (window.location.hash === '#admin') {
+        // Reload projects (detectar si estamos en admin.html o en index.html)
+        if (window.location.pathname.includes('admin')) {
             loadAdminProjects();
-        } else {
+        } else if (document.getElementById('projectsGrid')) {
             loadProjects();
         }
     } catch (error) {

@@ -1,5 +1,8 @@
 // UI Components and utilities
 
+// Placeholder image (SVG inline para evitar errores de carga)
+const PLACEHOLDER_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWExYTI0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNmI3MjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+U2luIGltYWdlbjwvdGV4dD48L3N2Zz4=';
+
 // Show toast notification
 function showToast(message, type = 'success') {
     const container = document.getElementById('toastContainer');
@@ -49,11 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderProjectCard(project) {
     const imageUrl = project.images && project.images.length > 0
         ? project.images[0]
-        : '/placeholder.jpg';
+        : PLACEHOLDER_IMAGE;
 
     return `
     <div class="project-card" onclick="viewProject('${project._id}')">
-      <img src="${imageUrl}" alt="${project.title}" class="project-image" onerror="this.src='/placeholder.jpg'">
+      <img src="${imageUrl}" alt="${project.title}" class="project-image" onerror="this.onerror=null; this.src='${PLACEHOLDER_IMAGE}'">
       <div class="project-content">
         <h3 class="project-title">${project.title}</h3>
         <p class="project-description">${project.description}</p>
@@ -114,11 +117,11 @@ function renderProjectDetail(project) {
 function renderAdminProjectCard(project) {
     const imageUrl = project.images && project.images.length > 0
         ? project.images[0]
-        : '/placeholder.jpg';
+        : PLACEHOLDER_IMAGE;
 
     return `
     <div class="admin-project-card">
-      <img src="${imageUrl}" alt="${project.title}" class="admin-project-image" onerror="this.src='/placeholder.jpg'">
+      <img src="${imageUrl}" alt="${project.title}" class="admin-project-image" onerror="this.onerror=null; this.src='${PLACEHOLDER_IMAGE}'">
       <div class="admin-project-info">
         <h3>${project.title}</h3>
         <p style="color: var(--text-secondary); margin-bottom: var(--spacing-sm);">${project.description.substring(0, 150)}${project.description.length > 150 ? '...' : ''}</p>

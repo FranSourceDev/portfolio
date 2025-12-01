@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyectos de automatización - Explora mi colección de soluciones innovadoras">
+    <meta name="keywords" content="automatización, proyectos, desarrollo, tecnología, portfolio">
+    <meta name="author" content="Portfolio">
+
+    <title>Proyectos | Portfolio Profesional</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">Portfolio</span>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/projects.html" class="nav-link active">Proyectos</a>
+                    <a href="/contact.html" class="nav-link">Contacto</a>
+                    <a href="/admin.html" class="nav-link nav-link-admin" id="adminLink">Admin</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app">
+        <!-- Projects Section -->
+        <section class="section projects-section active">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Proyectos Destacados</h2>
+                    <p class="section-description">
+                        Explora mi colección de proyectos de automatización y soluciones innovadoras
+                    </p>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be loaded here dynamically -->
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Cargando proyectos...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/projects.js"></script>
+    <script src="/js/projects-page.js"></script>
+</body>
+
+</html>
+

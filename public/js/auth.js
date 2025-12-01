@@ -16,7 +16,11 @@ const auth = {
                 }
             } catch (error) {
                 console.error('Auth initialization failed:', error);
-                this.logout();
+                // Solo limpiar el token, NO redirigir (evita loop infinito)
+                this.isAuthenticated = false;
+                this.user = null;
+                api.clearToken();
+                this.updateUI();
             }
         }
     },
