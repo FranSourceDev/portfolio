@@ -1,7 +1,19 @@
 // Main application logic
 
+// Lista de secciones principales (IDs válidos para navegación de secciones)
+const MAIN_SECTIONS = ['home', 'projects', 'contact'];
+
 // Navigation
 function navigateTo(sectionId) {
+    // Si no es una sección principal, hacer scroll al elemento dentro de la sección actual
+    if (!MAIN_SECTIONS.includes(sectionId)) {
+        const targetElement = document.getElementById(sectionId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+    }
+
     // Remove active class from all sections
     document.querySelectorAll('.section').forEach(section => {
         section.classList.remove('active');
@@ -28,8 +40,6 @@ function navigateTo(sectionId) {
     // Load section-specific content
     if (sectionId === 'projects') {
         loadProjects();
-    } else if (sectionId === 'admin') {
-        handleAdminSection();
     }
 
     // Close mobile menu
@@ -37,24 +47,22 @@ function navigateTo(sectionId) {
     navLinks?.classList.remove('active');
 }
 
-// Handle admin section
-function handleAdminSection() {
-    const adminLogin = document.getElementById('adminLogin');
-    const adminDashboard = document.getElementById('adminDashboard');
-
-    if (auth.isAuthenticated) {
-        adminLogin.style.display = 'none';
-        adminDashboard.style.display = 'block';
-        loadAdminProjects();
-    } else {
-        adminLogin.style.display = 'block';
-        adminDashboard.style.display = 'none';
-    }
-}
-
 // Handle hash navigation
 function handleHashChange() {
     const hash = window.location.hash.slice(1) || 'home';
+    
+    // Si es un anchor interno (no una sección principal), asegurarse de que home esté activo
+    if (!MAIN_SECTIONS.includes(hash)) {
+        // Activar la sección home si no hay ninguna sección activa
+        const activeSection = document.querySelector('.section.active');
+        if (!activeSection) {
+            const homeSection = document.getElementById('home');
+            if (homeSection) {
+                homeSection.classList.add('active');
+            }
+        }
+    }
+    
     navigateTo(hash);
 }
 
@@ -63,8 +71,8 @@ async function initApp() {
     // Initialize auth
     await auth.init();
 
-    // Setup navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
+    // Setup navigation (solo para enlaces con hash #)
+    document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
@@ -79,31 +87,6 @@ async function initApp() {
     mobileMenuBtn?.addEventListener('click', () => {
         navLinks?.classList.toggle('active');
     });
-
-    // Login form
-    const loginForm = document.getElementById('loginForm');
-    loginForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-
-        const success = await auth.login(email, password);
-
-        if (success) {
-            handleAdminSection();
-        }
-    });
-
-    // Logout button
-    const logoutBtn = document.getElementById('logoutBtn');
-    logoutBtn?.addEventListener('click', () => {
-        auth.logout();
-    });
-
-    // New project button
-    const newProjectBtn = document.getElementById('newProjectBtn');
-    newProjectBtn?.addEventListener('click', showNewProjectForm);
 
     // Contact form handler
     const contactForm = document.getElementById('contactForm');

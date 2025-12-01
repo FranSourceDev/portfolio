@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin | Portfolio Profesional</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">Portfolio</span>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/#projects" class="nav-link">Proyectos</a>
+                    <a href="/#contact" class="nav-link">Contacto</a>
+                    <a href="/admin.html" class="nav-link nav-link-admin active">Admin</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app">
+        <!-- Admin Section -->
+        <section class="section admin-section active">
+            <div class="container">
+                <!-- Login Form -->
+                <div class="admin-login" id="adminLogin">
+                    <div class="login-card">
+                        <h2>Panel de Administración</h2>
+                        <p>Ingresa tus credenciales para continuar</p>
+
+                        <form id="loginForm" class="form">
+                            <div class="form-group">
+                                <label for="loginEmail">Email</label>
+                                <input type="email" id="loginEmail" required placeholder="admin@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="loginPassword">Contraseña</label>
+                                <input type="password" id="loginPassword" required placeholder="••••••••">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Iniciar Sesión
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Admin Dashboard -->
+                <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+                    <div class="dashboard-header">
+                        <h2>Gestión de Proyectos</h2>
+                        <div class="dashboard-actions">
+                            <button class="btn btn-primary" id="newProjectBtn">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                                Nuevo Proyecto
+                            </button>
+                            <button class="btn btn-secondary" id="logoutBtn">Cerrar Sesión</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-projects-list" id="adminProjectsList">
+                        <!-- Admin projects will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/projects.js"></script>
+    <script src="/js/admin-app.js"></script>
+</body>
+
+</html>
+

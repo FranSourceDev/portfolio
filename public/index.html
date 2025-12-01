@@ -35,7 +35,7 @@
                     <a href="#home" class="nav-link active">Inicio</a>
                     <a href="#projects" class="nav-link">Proyectos</a>
                     <a href="#contact" class="nav-link">Contacto</a>
-                    <a href="#admin" class="nav-link nav-link-admin" id="adminLink">Admin</a>
+                    <a href="/admin.html" class="nav-link nav-link-admin" id="adminLink">Admin</a>
                 </div>
 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -239,56 +239,6 @@
                         <h3>Twitter</h3>
                         <p>Sígueme en Twitter</p>
                     </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Section -->
-        <section id="admin" class="section admin-section" style="display: none;">
-            <div class="container">
-                <!-- Login Form -->
-                <div class="admin-login" id="adminLogin">
-                    <div class="login-card">
-                        <h2>Panel de Administración</h2>
-                        <p>Ingresa tus credenciales para continuar</p>
-
-                        <form id="loginForm" class="form">
-                            <div class="form-group">
-                                <label for="loginEmail">Email</label>
-                                <input type="email" id="loginEmail" required placeholder="admin@example.com">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="loginPassword">Contraseña</label>
-                                <input type="password" id="loginPassword" required placeholder="••••••••">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block">
-                                Iniciar Sesión
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Admin Dashboard -->
-                <div class="admin-dashboard" id="adminDashboard" style="display: none;">
-                    <div class="dashboard-header">
-                        <h2>Gestión de Proyectos</h2>
-                        <div class="dashboard-actions">
-                            <button class="btn btn-primary" id="newProjectBtn">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                                Nuevo Proyecto
-                            </button>
-                            <button class="btn btn-secondary" id="logoutBtn">Cerrar Sesión</button>
-                        </div>
-                    </div>
-
-                    <div class="admin-projects-list" id="adminProjectsList">
-                        <!-- Admin projects will be loaded here -->
-                    </div>
                 </div>
             </div>
         </section>
