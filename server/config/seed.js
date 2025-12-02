@@ -10,6 +10,12 @@ const ADMIN_CONFIG = {
 
 async function seedAdmin() {
     try {
+        // Esperar a que mongoose esté conectado
+        if (!User.db || User.db.readyState !== 1) {
+            console.log('⏳ Esperando conexión a MongoDB para seed...');
+            return;
+        }
+
         // Verificar si ya existe un usuario
         const existingUser = await User.findOne({ email: ADMIN_CONFIG.email });
         
@@ -31,9 +37,9 @@ async function seedAdmin() {
 
         await admin.save();
         console.log('✅ Usuario admin creado:', ADMIN_CONFIG.email);
-        console.log('⚠️  Recuerda cambiar la contraseña después del primer login');
     } catch (error) {
-        console.error('❌ Error creando usuario admin:', error.message);
+        // No fallar si hay error en el seed, solo loguear
+        console.error('⚠️ Seed admin:', error.message);
     }
 }
 

@@ -16,6 +16,8 @@ const app = express();
 // Connect to MongoDB and seed admin user
 connectDB().then(() => {
     seedAdmin();
+}).catch(err => {
+    console.error('Error en la inicialización:', err);
 });
 
 // Middleware
