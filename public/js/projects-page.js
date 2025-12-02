@@ -39,3 +39,4 @@ if (document.readyState === 'loading') {
     initProjectsPage();
 }
 
+

@@ -13,6 +13,21 @@ async function initHomePage() {
         navLinks?.classList.toggle('active');
     });
 
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a.scroll-link[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').slice(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
     // Contact form handler
     const contactForm = document.getElementById('contactForm');
     contactForm?.addEventListener('submit', handleContactFormSubmit);
