@@ -40,7 +40,24 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Serve index.html for all other routes (SPA support)
+// Serve HTML pages for known routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+app.get('/projects.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/projects.html'));
+});
+
+app.get('/contact.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/contact.html'));
+});
+
+app.get('/admin.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/admin.html'));
+});
+
+// Fallback to index.html for unknown routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });

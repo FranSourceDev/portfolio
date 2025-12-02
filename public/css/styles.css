@@ -293,6 +293,19 @@ p {
   transition: all var(--transition-base);
 }
 
+/* Animación del botón hamburguesa a X */
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* ===================================
    BUTTONS
    =================================== */
@@ -480,6 +493,8 @@ p {
   align-items: center;
   justify-content: center;
   line-height: 1;
+  /* Asegurar mismo tamaño para todos los emojis */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 
 .floating-card .card-text {
@@ -1062,6 +1077,7 @@ p {
 
   /* Navigation */
   .nav-links {
+    display: none;
     position: fixed;
     top: 70px;
     left: 0;
@@ -1070,16 +1086,18 @@ p {
     backdrop-filter: blur(20px);
     flex-direction: column;
     padding: var(--spacing-xl);
+    gap: var(--spacing-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: all var(--transition-base);
     z-index: 999;
   }
 
   .nav-links.active {
-    transform: translateY(0);
-    opacity: 1;
+    display: flex;
+  }
+
+  .nav-links .nav-link {
+    font-size: 1.1rem;
+    padding: var(--spacing-sm) 0;
   }
 
   .mobile-menu-btn {
@@ -1101,11 +1119,57 @@ p {
   }
 
   .hero-visual {
-    display: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    width: 100%;
+    height: auto;
+    margin-top: var(--spacing-2xl);
+    transform: none;
+    right: auto;
+    top: auto;
+  }
+
+  .floating-card {
+    position: relative;
+    padding: var(--spacing-md);
+    animation: none;
+    flex: 1;
+    max-width: 100px;
+  }
+
+  .floating-card .card-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .floating-card .card-text {
+    font-size: 0.65rem;
+    white-space: nowrap;
+  }
+
+  .card-1, .card-2, .card-3 {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 
   .hero-badge {
     font-size: 0.75rem;
+    display: inline-flex;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .badge-dot {
+    width: 6px;
+    height: 6px;
   }
 
   .hero-title {

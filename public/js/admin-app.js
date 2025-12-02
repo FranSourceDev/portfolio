@@ -29,6 +29,15 @@ async function initAdminApp() {
 
     mobileMenuBtn?.addEventListener('click', () => {
         navLinks?.classList.toggle('active');
+        mobileMenuBtn?.classList.toggle('active');
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks?.classList.remove('active');
+            mobileMenuBtn?.classList.remove('active');
+        });
     });
 
     // Login form
