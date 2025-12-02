@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
+const seedAdmin = require('./config/seed');
 
 // Import routes
 const authRoutes = require('./routes/auth.routes');
@@ -12,8 +13,10 @@ const contactRoutes = require('./routes/contact.routes');
 // Initialize express app
 const app = express();
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB and seed admin user
+connectDB().then(() => {
+    seedAdmin();
+});
 
 // Middleware
 app.use(cors());
