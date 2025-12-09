@@ -115,8 +115,10 @@ function renderProjectDetail(project) {
           <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
             ${project.deployUrl ? `
               <a href="${project.deployUrl}" target="_blank" rel="noopener noreferrer" class="project-link-btn project-link-deploy">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M11 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9m-4-4h4m-4-4v4m4-4l-8 8"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
                 </svg>
                 Ver Demo
               </a>
