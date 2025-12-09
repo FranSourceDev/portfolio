@@ -99,6 +99,8 @@ async function handleProjectSubmit(e, projectId = null) {
     const title = document.getElementById('projectTitle').value;
     const description = document.getElementById('projectDescription').value;
     const technologies = document.getElementById('projectTechnologies').value;
+    const deployUrl = document.getElementById('projectDeployUrl').value;
+    const githubUrl = document.getElementById('projectGithubUrl').value;
     const files = document.getElementById('projectFiles').files;
 
     // Create FormData
@@ -108,6 +110,14 @@ async function handleProjectSubmit(e, projectId = null) {
 
     if (technologies) {
         formData.append('technologies', technologies);
+    }
+
+    if (deployUrl) {
+        formData.append('deployUrl', deployUrl);
+    }
+
+    if (githubUrl) {
+        formData.append('githubUrl', githubUrl);
     }
 
     // Add files

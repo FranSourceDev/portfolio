@@ -167,10 +167,11 @@ p {
   display: block;
 }
 
-/* Páginas individuales (proyectos, contacto, admin) - compensar navbar fijo */
+/* Páginas individuales (proyectos, contacto, admin, cv) - compensar navbar fijo */
 .projects-section.active,
 .contact-section.active,
-.admin-section.active {
+.admin-section.active,
+.cv-section.active {
   padding-top: 120px;
 }
 
@@ -677,6 +678,43 @@ p {
   color: var(--primary-500);
 }
 
+/* Project Links (Deploy and GitHub) */
+.project-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.project-link-deploy {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.project-link-deploy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+.project-link-github {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.project-link-github:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 .loading-state,
 .empty-state {
   grid-column: 1 / -1;
@@ -788,6 +826,201 @@ p {
 .contact-card p {
   font-size: 0.875rem;
   position: relative;
+}
+
+/* ===================================
+   CV SECTION
+   =================================== */
+.cv-section {
+  background: var(--bg-secondary);
+}
+
+.cv-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-3xl);
+}
+
+.cv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3xl);
+  padding-bottom: var(--spacing-2xl);
+  border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.cv-header-content {
+  flex: 1;
+}
+
+.cv-name {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+}
+
+.cv-title {
+  font-size: 1.25rem;
+  color: var(--primary-500);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+}
+
+.cv-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.cv-contact span {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.cv-download {
+  display: flex;
+  align-items: flex-start;
+}
+
+.cv-section-block {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.cv-section-title {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.cv-text {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.cv-item {
+  margin-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-lg);
+  border-left: 2px solid rgba(99, 102, 241, 0.2);
+}
+
+.cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-xs);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.cv-item-title {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.cv-item-date {
+  color: var(--primary-500);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cv-item-company {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+  font-style: italic;
+}
+
+.cv-item-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-sm);
+}
+
+.cv-item-list li {
+  color: var(--text-secondary);
+  padding-left: var(--spacing-md);
+  position: relative;
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.7;
+}
+
+.cv-item-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--primary-500);
+  font-weight: bold;
+}
+
+.cv-skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.cv-skill-category {
+  margin-bottom: var(--spacing-md);
+}
+
+.cv-skill-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.cv-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.cv-skill-tag {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--primary-500);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.cv-languages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.cv-language-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cv-language-name {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.cv-language-level {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 /* ===================================
@@ -1226,6 +1459,12 @@ p {
     height: 200px;
   }
 
+  .project-link-btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
   /* Contact */
   .contact-grid {
     grid-template-columns: 1fr;
@@ -1252,6 +1491,50 @@ p {
 
   .recent-projects-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* CV Section */
+  .cv-container {
+    padding: var(--spacing-lg);
+  }
+
+  .cv-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cv-name {
+    font-size: 2rem;
+  }
+
+  .cv-title {
+    font-size: 1.1rem;
+  }
+
+  .cv-contact {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .cv-download {
+    width: 100%;
+  }
+
+  .cv-download .btn {
+    width: 100%;
+  }
+
+  .cv-item {
+    padding-left: var(--spacing-md);
+  }
+
+  .cv-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cv-section-title {
+    font-size: 1.5rem;
   }
 
   /* Admin */

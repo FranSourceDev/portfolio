@@ -7,3 +7,6 @@ cmds = ["cd server && npm install"]
 [start]
 cmd = "cd server && npm start"
 
+
+
+

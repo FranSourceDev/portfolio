@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curriculum Vitae - Experiencia profesional y habilidades">
+    <meta name="keywords" content="cv, curriculum vitae, experiencia, habilidades">
+    <meta name="author" content="Portfolio">
+
+    <title>CV | Portfolio Profesional</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <span class="logo-icon">💼</span>
+                    <span class="logo-text">Portfolio</span>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/projects.html" class="nav-link">Proyectos</a>
+                    <a href="/cv.html" class="nav-link active">CV</a>
+                    <a href="/contact.html" class="nav-link">Contacto</a>
+                    <a href="/admin.html" class="nav-link nav-link-admin" id="adminLink">Admin</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app">
+        <!-- CV Section -->
+        <section class="section cv-section active">
+            <div class="container">
+                <div class="cv-container">
+                    <!-- CV Header -->
+                    <div class="cv-header">
+                        <div class="cv-header-content">
+                            <h1 class="cv-name">Tu Nombre</h1>
+                            <p class="cv-title">Tu Título Profesional</p>
+                            <div class="cv-contact">
+                                <span>📧 tu-email@ejemplo.com</span>
+                                <span>📱 +XX XXX XXX XXX</span>
+                                <span>📍 Tu Ubicación</span>
+                            </div>
+                        </div>
+                        <div class="cv-download">
+                            <a href="/cv.pdf" class="btn btn-primary" download id="cvDownloadBtn" style="display: none;">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M10 3v10m0 0l-4-4m4 4l4-4M3 17h14" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Descargar PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resumen Profesional -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Resumen Profesional</h2>
+                        <p class="cv-text">
+                            [Describe tu experiencia profesional, objetivos y fortalezas principales. 
+                            Este es un ejemplo de texto que puedes reemplazar con tu información real.]
+                        </p>
+                    </div>
+
+                    <!-- Experiencia Laboral -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Experiencia Laboral</h2>
+                        
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <h3 class="cv-item-title">Nombre del Puesto</h3>
+                                <span class="cv-item-date">2020 - Presente</span>
+                            </div>
+                            <p class="cv-item-company">Nombre de la Empresa</p>
+                            <ul class="cv-item-list">
+                                <li>Responsabilidad o logro principal</li>
+                                <li>Otra responsabilidad o logro</li>
+                                <li>Resultado o impacto alcanzado</li>
+                            </ul>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <h3 class="cv-item-title">Nombre del Puesto Anterior</h3>
+                                <span class="cv-item-date">2018 - 2020</span>
+                            </div>
+                            <p class="cv-item-company">Nombre de la Empresa Anterior</p>
+                            <ul class="cv-item-list">
+                                <li>Responsabilidad o logro principal</li>
+                                <li>Otra responsabilidad o logro</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Educación -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Educación</h2>
+                        
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <h3 class="cv-item-title">Título Universitario</h3>
+                                <span class="cv-item-date">2014 - 2018</span>
+                            </div>
+                            <p class="cv-item-company">Nombre de la Universidad</p>
+                        </div>
+
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <h3 class="cv-item-title">Otro Título o Certificación</h3>
+                                <span class="cv-item-date">2019</span>
+                            </div>
+                            <p class="cv-item-company">Institución</p>
+                        </div>
+                    </div>
+
+                    <!-- Habilidades Técnicas -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Habilidades Técnicas</h2>
+                        <div class="cv-skills">
+                            <div class="cv-skill-category">
+                                <h4 class="cv-skill-title">Lenguajes de Programación</h4>
+                                <div class="cv-skill-tags">
+                                    <span class="cv-skill-tag">JavaScript</span>
+                                    <span class="cv-skill-tag">Python</span>
+                                    <span class="cv-skill-tag">Node.js</span>
+                                    <span class="cv-skill-tag">HTML/CSS</span>
+                                </div>
+                            </div>
+                            <div class="cv-skill-category">
+                                <h4 class="cv-skill-title">Frameworks y Herramientas</h4>
+                                <div class="cv-skill-tags">
+                                    <span class="cv-skill-tag">React</span>
+                                    <span class="cv-skill-tag">Express</span>
+                                    <span class="cv-skill-tag">MongoDB</span>
+                                    <span class="cv-skill-tag">Git</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificaciones (Opcional) -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Certificaciones</h2>
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <h3 class="cv-item-title">Nombre de la Certificación</h3>
+                                <span class="cv-item-date">2023</span>
+                            </div>
+                            <p class="cv-item-company">Institución Emisora</p>
+                        </div>
+                    </div>
+
+                    <!-- Idiomas (Opcional) -->
+                    <div class="cv-section-block">
+                        <h2 class="cv-section-title">Idiomas</h2>
+                        <div class="cv-languages">
+                            <div class="cv-language-item">
+                                <span class="cv-language-name">Español</span>
+                                <span class="cv-language-level">Nativo</span>
+                            </div>
+                            <div class="cv-language-item">
+                                <span class="cv-language-name">Inglés</span>
+                                <span class="cv-language-level">Avanzado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/cv-page.js"></script>
+</body>
+
+</html>
+

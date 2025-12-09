@@ -33,6 +33,7 @@
                 <div class="nav-links" id="navLinks">
                     <a href="/" class="nav-link">Inicio</a>
                     <a href="/projects.html" class="nav-link">Proyectos</a>
+                    <a href="/cv.html" class="nav-link">CV</a>
                     <a href="/contact.html" class="nav-link active">Contacto</a>
                     <a href="/admin.html" class="nav-link nav-link-admin" id="adminLink">Admin</a>
                 </div>
@@ -93,53 +94,6 @@
                         <p>Envíame un mensaje</p>
                     </a>
                 </div>
-
-                <!-- Contact Form -->
-                <div class="contact-form-container" style="margin-top: var(--spacing-3xl);">
-                    <div class="section-header">
-                        <h2 class="section-title">Envíame un Mensaje</h2>
-                        <p class="section-description">
-                            ¿Tienes un proyecto en mente? Cuéntame sobre él
-                        </p>
-                    </div>
-
-                    <div class="contact-form-wrapper">
-                        <form id="contactForm" class="contact-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="contactName">Nombre *</label>
-                                    <input type="text" id="contactName" name="name" required
-                                        placeholder="Tu nombre completo">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="contactEmail">Email *</label>
-                                    <input type="email" id="contactEmail" name="email" required
-                                        placeholder="tu@email.com">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="contactSubject">Asunto *</label>
-                                <input type="text" id="contactSubject" name="subject" required
-                                    placeholder="¿En qué puedo ayudarte?">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="contactMessage">Mensaje *</label>
-                                <textarea id="contactMessage" name="message" required rows="6"
-                                    placeholder="Cuéntame sobre tu proyecto o consulta..."></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block" id="contactSubmitBtn">
-                                <span class="btn-text">Enviar Mensaje</span>
-                                <span class="btn-loading" style="display: none;">
-                                    <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
-                                </span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -151,7 +105,6 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/ui.js"></script>
-    <script src="/js/contact.js"></script>
     <script src="/js/contact-page.js"></script>
 </body>
 

@@ -25,6 +25,26 @@ const projectSchema = new mongoose.Schema({
         type: String,
         trim: true
     }],
+    deployUrl: {
+        type: String,
+        trim: true,
+        validate: {
+            validator: function(v) {
+                return !v || /^https?:\/\/.+/.test(v);
+            },
+            message: 'Deploy URL must be a valid URL'
+        }
+    },
+    githubUrl: {
+        type: String,
+        trim: true,
+        validate: {
+            validator: function(v) {
+                return !v || /^https?:\/\/.+/.test(v);
+            },
+            message: 'GitHub URL must be a valid URL'
+        }
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -57,7 +57,7 @@ const getProject = async (req, res) => {
 // @access  Private
 const createProject = async (req, res) => {
     try {
-        const { title, description, technologies } = req.body;
+        const { title, description, technologies, deployUrl, githubUrl } = req.body;
 
         // Validate required fields
         if (!title || !description) {
@@ -97,7 +97,9 @@ const createProject = async (req, res) => {
             description,
             images,
             videos,
-            technologies: techArray
+            technologies: techArray,
+            deployUrl: deployUrl || undefined,
+            githubUrl: githubUrl || undefined
         });
 
         res.status(201).json({
@@ -128,7 +130,7 @@ const updateProject = async (req, res) => {
             });
         }
 
-        const { title, description, technologies } = req.body;
+        const { title, description, technologies, deployUrl, githubUrl } = req.body;
 
         // Process new uploaded files
         const newImages = [];
@@ -155,16 +157,26 @@ const updateProject = async (req, res) => {
         }
 
         // Update project
+        const updateData = {
+            title: title || project.title,
+            description: description || project.description,
+            images: newImages.length > 0 ? [...project.images, ...newImages] : project.images,
+            videos: newVideos.length > 0 ? [...project.videos, ...newVideos] : project.videos,
+            technologies: techArray,
+            updatedAt: Date.now()
+        };
+
+        // Update URLs if provided (allow empty string to clear)
+        if (deployUrl !== undefined) {
+            updateData.deployUrl = deployUrl || undefined;
+        }
+        if (githubUrl !== undefined) {
+            updateData.githubUrl = githubUrl || undefined;
+        }
+
         project = await Project.findByIdAndUpdate(
             req.params.id,
-            {
-                title: title || project.title,
-                description: description || project.description,
-                images: newImages.length > 0 ? [...project.images, ...newImages] : project.images,
-                videos: newVideos.length > 0 ? [...project.videos, ...newVideos] : project.videos,
-                technologies: techArray,
-                updatedAt: Date.now()
-            },
+            updateData,
             { new: true, runValidators: true }
         );
 

@@ -58,6 +58,10 @@ app.get('/contact.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/contact.html'));
 });
 
+app.get('/cv.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/cv.html'));
+});
+
 app.get('/admin.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/admin.html'));
 });

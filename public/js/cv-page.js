@@ -1,9 +1,12 @@
-// Contact page application logic
+// CV page application logic
 
-// Initialize contact page
-async function initContactPage() {
+// Initialize CV page
+async function initCVPage() {
     // Initialize auth
     await auth.init();
+
+    // Check if PDF exists and show download button
+    checkPDFExists();
 
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -38,11 +41,26 @@ async function initContactPage() {
     });
 }
 
-// Start app when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initContactPage);
-} else {
-    initContactPage();
+// Check if PDF file exists
+function checkPDFExists() {
+    const downloadBtn = document.getElementById('cvDownloadBtn');
+    if (!downloadBtn) return;
+
+    fetch('/cv.pdf', { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                downloadBtn.style.display = 'inline-flex';
+            }
+        })
+        .catch(() => {
+            // PDF doesn't exist, button stays hidden
+        });
 }
 
+// Start app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCVPage);
+} else {
+    initCVPage();
+}
 
