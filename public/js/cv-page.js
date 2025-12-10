@@ -5,6 +5,12 @@ async function initCVPage() {
     // Initialize auth
     await auth.init();
 
+    // Load CV from API
+    const cv = await loadCV();
+    if (cv) {
+        renderCV(cv);
+    }
+
     // Check if PDF exists and show download button
     checkPDFExists();
 

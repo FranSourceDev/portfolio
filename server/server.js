@@ -9,6 +9,7 @@ const seedAdmin = require('./config/seed');
 const authRoutes = require('./routes/auth.routes');
 const projectRoutes = require('./routes/project.routes');
 const contactRoutes = require('./routes/contact.routes');
+const cvRoutes = require('./routes/cv.routes');
 
 // Initialize express app
 const app = express();
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/cv', cvRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

@@ -1105,6 +1105,40 @@ p {
   min-height: 120px;
 }
 
+.form-group select {
+  padding: 0.875rem;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-right: var(--spacing-xs);
+  cursor: pointer;
+}
+
+/* CV Form Items */
+.cv-form-item {
+  margin-bottom: var(--spacing-md);
+}
+
+.cv-form-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;

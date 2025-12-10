@@ -66,6 +66,17 @@ async function initAdminApp() {
     const newProjectBtn = document.getElementById('newProjectBtn');
     newProjectBtn?.addEventListener('click', showNewProjectForm);
 
+    // Edit CV button
+    const editCVBtn = document.getElementById('editCVBtn');
+    editCVBtn?.addEventListener('click', () => {
+        if (typeof showCVForm === 'function') {
+            showCVForm();
+        } else {
+            console.error('showCVForm is not defined. Make sure cv.js is loaded.');
+            showToast('Error: función no disponible. Recarga la página.', 'error');
+        }
+    });
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
 

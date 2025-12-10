@@ -143,6 +143,22 @@ class APIClient {
             headers: this.getHeaders(true),
         });
     }
+
+    // CV endpoints
+    async getCV() {
+        return this.request('/cv', {
+            method: 'GET',
+            headers: this.getHeaders(),
+        });
+    }
+
+    async updateCV(cvData) {
+        return this.request('/cv', {
+            method: 'PUT',
+            headers: this.getHeaders(true),
+            body: JSON.stringify(cvData),
+        });
+    }
 }
 
 // Export API client instance
