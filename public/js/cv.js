@@ -19,6 +19,15 @@ async function loadCV() {
     }
 }
 
+// Load and render CV in one function
+async function loadAndRenderCV() {
+    const cv = await loadCV();
+    if (cv) {
+        renderCV(cv);
+    }
+    return cv;
+}
+
 // Render CV in cv.html
 function renderCV(cv) {
     if (!cv) {
@@ -60,9 +69,21 @@ function renderCV(cv) {
     }
 
     // Summary
-    const summaryEl = container.querySelector('.cv-section-block:first-of-type .cv-text');
-    if (summaryEl && cv.summary) {
-        summaryEl.textContent = cv.summary;
+    // Find the summary block by looking for the section with "Resumen Profesional" title
+    const summaryBlocks = container.querySelectorAll('.cv-section-block');
+    const summaryBlock = Array.from(summaryBlocks).find(block => 
+        block.querySelector('.cv-section-title')?.textContent === 'Resumen Profesional'
+    );
+    if (summaryBlock) {
+        const summaryEl = summaryBlock.querySelector('.cv-text');
+        if (summaryEl) {
+            if (cv.summary) {
+                summaryEl.textContent = cv.summary;
+            } else {
+                // Clear the summary if it's empty
+                summaryEl.textContent = '';
+            }
+        }
     }
 
     // Experience (optional - only show if there's data)
