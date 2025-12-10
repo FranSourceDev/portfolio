@@ -11,9 +11,6 @@ async function initCVPage() {
         renderCV(cv);
     }
 
-    // Check if PDF exists and show download button
-    checkPDFExists();
-
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
@@ -45,22 +42,6 @@ async function initCVPage() {
             navbar.style.boxShadow = 'none';
         }
     });
-}
-
-// Check if PDF file exists
-function checkPDFExists() {
-    const downloadBtn = document.getElementById('cvDownloadBtn');
-    if (!downloadBtn) return;
-
-    fetch('/cv.pdf', { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                downloadBtn.style.display = 'inline-flex';
-            }
-        })
-        .catch(() => {
-            // PDF doesn't exist, button stays hidden
-        });
 }
 
 // Start app when DOM is ready

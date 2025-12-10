@@ -198,11 +198,21 @@ function renderCV(cv) {
     }
 
     // PDF URL
-    if (cv.pdfUrl) {
-        const downloadBtn = document.getElementById('cvDownloadBtn');
-        if (downloadBtn) {
+    const downloadBtn = document.getElementById('cvDownloadBtn');
+    if (downloadBtn) {
+        if (cv.pdfUrl) {
             downloadBtn.href = cv.pdfUrl;
             downloadBtn.style.display = 'inline-flex';
+            // Remove download attribute if it's an external URL
+            if (cv.pdfUrl.startsWith('http://') || cv.pdfUrl.startsWith('https://')) {
+                downloadBtn.removeAttribute('download');
+                downloadBtn.target = '_blank';
+            } else {
+                downloadBtn.setAttribute('download', '');
+                downloadBtn.removeAttribute('target');
+            }
+        } else {
+            downloadBtn.style.display = 'none';
         }
     }
 }
