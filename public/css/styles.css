@@ -917,7 +917,9 @@ p {
 
 .cv-download {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  gap: var(--spacing-md);
 }
 
 .cv-section-block {
@@ -1597,6 +1599,7 @@ p {
 
   .cv-download {
     width: 100%;
+    align-items: stretch;
   }
 
   .cv-download .btn {
