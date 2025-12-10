@@ -4,6 +4,7 @@ const {
     updateCV
 } = require('../controllers/cv.controller');
 const { protect } = require('../middleware/auth');
+const upload = require('../middleware/upload');
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ const router = express.Router();
 router.get('/', getCV);
 
 // Protected route (require authentication)
-router.put('/', protect, updateCV);
+router.put('/', protect, upload.single('profileImage'), updateCV);
 
 module.exports = router;
 

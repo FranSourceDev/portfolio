@@ -26,6 +26,11 @@ const cvSchema = new mongoose.Schema({
             type: String,
             trim: true,
             default: ''
+        },
+        profileImage: {
+            type: String,
+            trim: true,
+            default: ''
         }
     },
     summary: {

@@ -31,9 +31,21 @@ function renderCV(cv) {
 
     // Personal Info
     if (cv.personalInfo) {
+        const profileImageEl = container.querySelector('#cvProfileImage');
         const nameEl = container.querySelector('.cv-name');
         const titleEl = container.querySelector('.cv-title');
         const contactEl = container.querySelector('.cv-contact');
+        
+        // Profile Image
+        if (profileImageEl) {
+            if (cv.personalInfo.profileImage) {
+                profileImageEl.src = cv.personalInfo.profileImage;
+                profileImageEl.style.display = 'block';
+                profileImageEl.alt = cv.personalInfo.name ? `${cv.personalInfo.name} - Foto de perfil` : 'Foto de perfil';
+            } else {
+                profileImageEl.style.display = 'none';
+            }
+        }
         
         if (nameEl && cv.personalInfo.name) nameEl.textContent = cv.personalInfo.name;
         if (titleEl && cv.personalInfo.title) titleEl.textContent = cv.personalInfo.title;
@@ -202,6 +214,24 @@ function renderCVForm(cv = null) {
         <!-- Personal Info -->
         <div style="margin-bottom: var(--spacing-xl);">
           <h3 style="margin-bottom: var(--spacing-md); color: var(--text-primary);">Información Personal</h3>
+          
+          <!-- Profile Image -->
+          <div class="form-group" style="margin-bottom: var(--spacing-md);">
+            <label for="cvProfileImageInput">Foto de Perfil</label>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+              ${cvData.personalInfo?.profileImage ? `
+                <div style="margin-bottom: var(--spacing-xs);">
+                  <img src="${cvData.personalInfo.profileImage}" alt="Foto actual" id="cvProfileImagePreview" 
+                       style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-500);">
+                </div>
+              ` : ''}
+              <input type="file" id="cvProfileImageInput" accept="image/*" style="padding: var(--spacing-xs);">
+              <small style="color: var(--text-secondary); font-size: 0.875rem;">
+                Formatos aceptados: JPG, PNG, GIF, WEBP. Tamaño recomendado: 300x300px o superior.
+              </small>
+            </div>
+          </div>
+          
           <div class="form-row">
             <div class="form-group">
               <label for="cvName">Nombre *</label>
@@ -575,13 +605,19 @@ async function handleCVSubmit(e) {
         pdfUrl: document.getElementById('cvPdfUrl').value || undefined
     };
 
+    // Check if there's a new profile image file
+    const profileImageInput = document.getElementById('cvProfileImageInput');
+    const profileImageFile = profileImageInput?.files?.[0];
+
     try {
-        const response = await api.updateCV(cvData);
+        const response = await api.updateCV(cvData, profileImageFile);
         
         if (response.success) {
             showToast('CV actualizado exitosamente', 'success');
             hideModal();
             currentCV = response.data;
+            // Reload CV to show new image
+            await loadAndRenderCV();
         }
     } catch (error) {
         console.error('Error saving CV:', error);
@@ -740,6 +776,32 @@ async function showCVForm() {
             } else {
                 console.error('CV form not found after rendering');
                 console.log('Modal body content:', document.getElementById('modalBody')?.innerHTML?.substring(0, 200));
+            }
+
+            // Attach profile image preview handler
+            const profileImageInput = document.getElementById('cvProfileImageInput');
+            if (profileImageInput) {
+                profileImageInput.addEventListener('change', function(e) {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            let preview = document.getElementById('cvProfileImagePreview');
+                            if (!preview) {
+                                // Create preview element if it doesn't exist
+                                const previewContainer = profileImageInput.parentElement;
+                                preview = document.createElement('img');
+                                preview.id = 'cvProfileImagePreview';
+                                preview.style.cssText = 'width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-500); margin-bottom: var(--spacing-xs);';
+                                preview.alt = 'Vista previa';
+                                profileImageInput.parentElement.insertBefore(preview, profileImageInput);
+                            }
+                            preview.src = event.target.result;
+                            preview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
         }, 100);
     } catch (error) {

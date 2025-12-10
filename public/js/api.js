@@ -152,12 +152,39 @@ class APIClient {
         });
     }
 
-    async updateCV(cvData) {
-        return this.request('/cv', {
-            method: 'PUT',
-            headers: this.getHeaders(true),
-            body: JSON.stringify(cvData),
-        });
+    async updateCV(cvData, profileImageFile = null) {
+        // If there's a profile image file, use FormData
+        if (profileImageFile) {
+            const formData = new FormData();
+            formData.append('cvData', JSON.stringify(cvData));
+            formData.append('profileImage', profileImageFile);
+
+            const headers = {};
+            if (this.token) {
+                headers['Authorization'] = `Bearer ${this.token}`;
+            }
+
+            const response = await fetch(`${API_URL}/cv`, {
+                method: 'PUT',
+                headers: headers,
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to update CV');
+            }
+
+            return data;
+        } else {
+            // No file, use JSON as before
+            return this.request('/cv', {
+                method: 'PUT',
+                headers: this.getHeaders(true),
+                body: JSON.stringify(cvData),
+            });
+        }
     }
 }
 
